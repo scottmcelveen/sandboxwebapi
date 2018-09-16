@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SandboxWebAPI.Entities.StudentAggregate;
 using SandboxWebAPI.Interfaces;
+using SandboxWebAPI.Specifications;
 using SandboxWebAPI.ViewModels;
 
 namespace SandboxWebAPI.Controllers
@@ -24,7 +25,8 @@ namespace SandboxWebAPI.Controllers
         [HttpGet]
         public IEnumerable<StudentViewModel> Get()
         {
-            var students = repository.ListAll();
+            var filter = new StudentFilterSpecification();
+            var students = repository.List(filter);
 
             return students.Select(s => StudentViewModel.MapFrom(s));
         }
