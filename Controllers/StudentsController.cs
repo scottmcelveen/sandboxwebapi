@@ -23,7 +23,7 @@ namespace SandboxWebAPI.Controllers
         }
         
         // GET api/students
-        [HttpGet]
+        [HttpGet(Name = nameof(Get))]
         public IPagedList<StudentViewModel> Get(int? pageSize, int? pageNumber)
         {
             var filter = new StudentFilterSpecification(pageSize, pageNumber);

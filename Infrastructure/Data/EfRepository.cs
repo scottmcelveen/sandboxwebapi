@@ -64,7 +64,7 @@ namespace SandboxWebAPI.Infrastructure.Data
             secondaryResult = secondaryResult
                             .Where(spec.Criteria);
 
-            if(spec.PageNumber.HasValue) return secondaryResult.ToPagedList(spec.PageNumber.Value, spec.PageSize.Value);
+            if(spec.PageNumber.HasValue) return secondaryResult.ToPagedList(spec.PageNumber.Value, spec.PageSize ?? 5);
             return secondaryResult.ToPagedList();
         }
         public async Task<List<T>> ListAsync(ISpecification<T> spec)
