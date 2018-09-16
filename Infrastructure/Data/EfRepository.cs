@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SandboxWebAPI.Entities;
 using SandboxWebAPI.Interfaces;
+using X.PagedList;
 
 namespace SandboxWebAPI.Infrastructure.Data
 {
@@ -47,7 +48,7 @@ namespace SandboxWebAPI.Infrastructure.Data
             return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public IEnumerable<T> List(ISpecification<T> spec)
+        public IPagedList<T> List(ISpecification<T> spec)
         {
             // fetch a Queryable that includes all expression-based includes
             var queryableResultWithIncludes = spec.Includes
@@ -63,14 +64,8 @@ namespace SandboxWebAPI.Infrastructure.Data
             secondaryResult = secondaryResult
                             .Where(spec.Criteria);
 
-            if(spec.PageNumber != null)
-            {
-                secondaryResult = secondaryResult
-                    .Skip(((spec.PageNumber ?? 1) - 1) * spec.PageSize ?? 5)
-                    .Take(spec.PageSize ?? 5);
-            }
-
-            return secondaryResult.AsEnumerable();
+            if(spec.PageNumber.HasValue) return secondaryResult.ToPagedList(spec.PageNumber.Value, spec.PageSize.Value);
+            return secondaryResult.ToPagedList();
         }
         public async Task<List<T>> ListAsync(ISpecification<T> spec)
         {

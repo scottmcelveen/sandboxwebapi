@@ -7,6 +7,7 @@ using SandboxWebAPI.Entities.StudentAggregate;
 using SandboxWebAPI.Interfaces;
 using SandboxWebAPI.Specifications;
 using SandboxWebAPI.ViewModels;
+using X.PagedList;
 
 namespace SandboxWebAPI.Controllers
 {
@@ -23,7 +24,7 @@ namespace SandboxWebAPI.Controllers
         
         // GET api/students
         [HttpGet]
-        public IEnumerable<StudentViewModel> Get(int? pageSize, int? pageNumber)
+        public IPagedList<StudentViewModel> Get(int? pageSize, int? pageNumber)
         {
             var filter = new StudentFilterSpecification(pageSize, pageNumber);
             var students = repository.List(filter);
