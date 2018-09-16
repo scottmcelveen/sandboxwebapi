@@ -60,9 +60,17 @@ namespace SandboxWebAPI.Infrastructure.Data
                     (current, include) => current.Include(include));
 
             // return the result of the query using the specification's criteria expression
-            return secondaryResult
-                            .Where(spec.Criteria)
-                            .AsEnumerable();
+            secondaryResult = secondaryResult
+                            .Where(spec.Criteria);
+
+            if(spec.PageNumber != null)
+            {
+                secondaryResult = secondaryResult
+                    .Skip(((spec.PageNumber ?? 1) - 1) * spec.PageSize ?? 5)
+                    .Take(spec.PageSize ?? 5);
+            }
+
+            return secondaryResult.AsEnumerable();
         }
         public async Task<List<T>> ListAsync(ISpecification<T> spec)
         {

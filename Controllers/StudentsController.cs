@@ -23,9 +23,9 @@ namespace SandboxWebAPI.Controllers
         
         // GET api/students
         [HttpGet]
-        public IEnumerable<StudentViewModel> Get()
+        public IEnumerable<StudentViewModel> Get(int? pageSize, int? pageNumber)
         {
-            var filter = new StudentFilterSpecification();
+            var filter = new StudentFilterSpecification(pageSize, pageNumber);
             var students = repository.List(filter);
 
             return students.Select(s => StudentViewModel.MapFrom(s));

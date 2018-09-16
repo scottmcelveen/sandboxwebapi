@@ -21,7 +21,17 @@ namespace SandboxWebAPI.Infrastructure.Data
         {
             return new List<Student>()
             {
-                new Student() { FirstName = "Scott", LastName = "McElveen" },
+                new Student() { FirstName = "Scott1", LastName = "McElveen" },
+                new Student() { FirstName = "Scott2", LastName = "McElveen" },
+                new Student() { FirstName = "Scott3", LastName = "McElveen" },
+                new Student() { FirstName = "Scott4", LastName = "McElveen" },
+                new Student() { FirstName = "Scott5", LastName = "McElveen" },
+                new Student() { FirstName = "Scott6", LastName = "McElveen" },
+                new Student() { FirstName = "Scott7", LastName = "McElveen" },
+                new Student() { FirstName = "Scott8", LastName = "McElveen" },
+                new Student() { FirstName = "Scott9", LastName = "McElveen" },
+                new Student() { FirstName = "Scott10", LastName = "McElveen" },
+                new Student() { FirstName = "Scott11", LastName = "McElveen" },
                 new Student() { FirstName = "Amanda", LastName = "McElveen" },
             };
         }
